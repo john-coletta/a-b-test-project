@@ -95,3 +95,15 @@ print(fit2.summary())
 dfUK = final_df.query('country == "UK"')
 dfUS = final_df.query('country == "US"')
 dfCA = final_df.query('country == "CA"')
+
+UKmod = sm.Logit(dfUK['converted'], dfUK[['intercept','ab_page']])
+USmod = sm.Logit(dfUS['converted'], dfUS[['intercept','ab_page']])
+CAmod = sm.Logit(dfCA['converted'], dfCA[['intercept','ab_page']])
+
+UKres = UKmod.fit()
+USres = USmod.fit()
+CAres = CAmod.fit()
+
+print(UKres.summary())
+print(USres.summary())
+print(CAres.summary())
