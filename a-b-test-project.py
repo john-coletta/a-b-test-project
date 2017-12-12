@@ -47,6 +47,7 @@ p_diffs = np.asarray(p_diffs)
 plt.hist(p_diffs)
 plt.axvline(obs_diff, color='r')
 plt.savefig('differencehistogram.png')
+plt.show()
 plt.clf()
 #Calculate the p-value
 pvalue = (p_diffs > obs_diff).mean()
