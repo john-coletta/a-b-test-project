@@ -18,3 +18,7 @@ treat2 = treat[treat['landing_page'] == 'new_page']
 contr2 = contr[contr['landing_page'] == 'old_page']
 
 df2 = treat2.append(contr2)
+#Check for any duplicate user id's
+print(df2[df2['user_id'].duplicated(keep=False)])
+#Drop one of the duplicated
+df2.drop_duplicates('user_id', inplace=True)
