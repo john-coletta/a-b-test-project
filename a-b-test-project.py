@@ -35,3 +35,11 @@ pnewnull = df2.query('converted == 1').shape[0] / df2.shape[0]
 poldnull = df2.query('converted == 1').shape[0] / df2.shape[0]
 nnew = df2.query('landing_page == "new_page"').shape[0]
 nold = df2.query('landing_page == "old_page"').shape[0]
+
+p_diffs = []
+for _ in range(10000):
+    new_convert = np.random.choice([0, 1], size=nnew, p=[1-pnewnull, pnewnull])
+    old_convert = np.random.choice([0, 1], size=nold, p=[1-poldnull, poldnull])
+    p_diffs.append(new_convert.mean() - old_convert.mean())
+
+p_diffs = np.asarray(p_diffs)
