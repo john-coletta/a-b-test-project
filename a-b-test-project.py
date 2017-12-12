@@ -30,7 +30,7 @@ df_treat = df2.query('group == "treatment"')
 treat_convert = df_treat.query('converted == 1').shape[0] / df_treat.shape[0]
 
 obs_diff = treat_convert - cont_convert
-
+#Now lets run an A/B test by simulating the null hypothesis
 pnewnull = df2.query('converted == 1').shape[0] / df2.shape[0]
 poldnull = df2.query('converted == 1').shape[0] / df2.shape[0]
 nnew = df2.query('landing_page == "new_page"').shape[0]
@@ -43,3 +43,8 @@ for _ in range(10000):
     p_diffs.append(new_convert.mean() - old_convert.mean())
 
 p_diffs = np.asarray(p_diffs)
+#Plot the histogram of the differences and the observed difference as a red line
+plt.hist(p_diffs)
+plt.axvline(obs_diff, color='r')
+plt.savefig('differencehistogram.png')
+plt.clf()
