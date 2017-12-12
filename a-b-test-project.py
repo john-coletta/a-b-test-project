@@ -12,3 +12,9 @@ ab_data = pd.read_csv('ab_data.csv')
 treat = ab_data.query('group == "treatment"')
 contr = ab_data.query('group == "control"')
 print(contr['landing_page'].value_counts(), treat['landing_page'].value_counts())
+
+#Create a cleaned dataframe
+treat2 = treat[treat['landing_page'] == 'new_page']
+contr2 = contr[contr['landing_page'] == 'old_page']
+
+df2 = treat2.append(contr2)
