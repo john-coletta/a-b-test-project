@@ -48,3 +48,6 @@ plt.hist(p_diffs)
 plt.axvline(obs_diff, color='r')
 plt.savefig('differencehistogram.png')
 plt.clf()
+
+pvalue = (p_diffs > obs_diff).mean()
+print(pvalue)
