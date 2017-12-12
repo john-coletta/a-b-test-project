@@ -30,3 +30,8 @@ df_treat = df2.query('group == "treatment"')
 treat_convert = df_treat.query('converted == 1').shape[0] / df_treat.shape[0]
 
 obs_diff = treat_convert - cont_convert
+
+pnewnull = df2.query('converted == 1').shape[0] / df2.shape[0]
+poldnull = df2.query('converted == 1').shape[0] / df2.shape[0]
+nnew = df2.query('landing_page == "new_page"').shape[0]
+nold = df2.query('landing_page == "old_page"').shape[0]
