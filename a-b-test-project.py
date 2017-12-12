@@ -79,3 +79,8 @@ print(res.summary())
 #Now let's add in a dataframe that has the country of origin
 countries = pd.read_csv('countries.csv')
 df3 = pd.merge(df2, countries, on='user_id')
+
+#Create dummy variables
+dummy_country = pd.get_dummies(df3['country'], prefix='country')
+final_df = df3.join(dummy_country)
+#The US column will be our baseline
