@@ -24,20 +24,21 @@ print(df2[df2['user_id'].duplicated(keep=False)])
 df2.drop_duplicates('user_id', inplace=True)
 #Now get the proportion of conversions for control and treatment
 df_control = df2.query('group == "control"')
-cont_convert = df_control.query('converted == 1').shape[0] / df_control.shape[0]
+cont_convert = float(df_control.query('converted == 1').shape[0]) / df_control.shape[0]
 
 df_treat = df2.query('group == "treatment"')
-treat_convert = df_treat.query('converted == 1').shape[0] / df_treat.shape[0]
+treat_convert = float(df_treat.query('converted == 1').shape[0]) / df_treat.shape[0]
 
 obs_diff = treat_convert - cont_convert
 #Now lets run an A/B test by simulating the null hypothesis
-pnewnull = df2.query('converted == 1').shape[0] / df2.shape[0]
-poldnull = df2.query('converted == 1').shape[0] / df2.shape[0]
+pnewnull = float(df2.query('converted == 1').shape[0]) / df2.shape[0]
+poldnull = float(df2.query('converted == 1').shape[0]) / df2.shape[0]
 nnew = df2.query('landing_page == "new_page"').shape[0]
 nold = df2.query('landing_page == "old_page"').shape[0]
 
+
 p_diffs = []
-for _ in range(10000):
+for i in range(10000):
     new_convert = np.random.choice([0, 1], size=nnew, p=[1-pnewnull, pnewnull])
     old_convert = np.random.choice([0, 1], size=nold, p=[1-poldnull, poldnull])
     p_diffs.append(new_convert.mean() - old_convert.mean())
