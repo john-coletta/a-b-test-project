@@ -48,6 +48,22 @@ plt.hist(p_diffs)
 plt.axvline(obs_diff, color='r')
 plt.savefig('differencehistogram.png')
 plt.clf()
-
+#Calculate the p-value
 pvalue = (p_diffs > obs_diff).mean()
 print(pvalue)
+#Now lets do it via a library
+import statsmodels.api as sm
+
+convert_old = df2.query('landing_page == "old_page"').query('converted == 1').shape[0]
+convert_new = df2.query('landing_page == "new_page"').query('converted == 1').shape[0]
+n_old = df2.query('landing_page == "old_page"').shape[0]
+n_new = df2.query('landing_page == "new_page"').shape[0]
+
+'''This function takes four arguements:
+1) the number of successful trials (new and old)
+2) the number of trials (new and old)
+3) the value of the null hypothesis (in this case 0 as the null hypothesis is that there is no difference in the proportions)
+4) the alternative hypothesis (in this case 'larger' since our alternative hypothesis
+is that the new page has a greater converstion rate than the old one)'''
+z_score, p_value = sm.stats.proportions_ztest([convert_new, convert_old], [n_new, n_old], value=0, alternative='larger')
+z_score, p_value
