@@ -90,3 +90,8 @@ mod2 = sm.Logit(final_df['converted'], final_df[['ab_page','country_CA','country
 fit2 = mod2.fit()
 
 print(fit2.summary())
+
+#Now we will break the data up by country and see what effect the page has on conversion
+dfUK = final_df.query('country == "UK"')
+dfUS = final_df.query('country == "US"')
+dfCA = final_df.query('country == "CA"')
