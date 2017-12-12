@@ -76,3 +76,6 @@ mod = sm.Logit(df2['converted'], df2[['ab_page', 'intercept']])
 res = mod.fit()
 print(res.summary())
 
+#Now let's add in a dataframe that has the country of origin
+countries = pd.read_csv('countries.csv')
+df3 = pd.merge(df2, countries, on='user_id')
