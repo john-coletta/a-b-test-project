@@ -71,3 +71,8 @@ print(z_score, p_value)
 #Now let's use logistic regression to build a model
 df2['intercept'] = 1
 df2['ab_page'] = np.where(df2['group'] == 'control', 0, 1)
+
+mod = sm.Logit(df2['converted'], df2[['ab_page', 'intercept']])
+res = mod.fit()
+print(res.summary())
+
