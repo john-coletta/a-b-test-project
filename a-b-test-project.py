@@ -66,4 +66,8 @@ n_new = df2.query('landing_page == "new_page"').shape[0]
 4) the alternative hypothesis (in this case 'larger' since our alternative hypothesis
 is that the new page has a greater converstion rate than the old one)'''
 z_score, p_value = sm.stats.proportions_ztest([convert_new, convert_old], [n_new, n_old], value=0, alternative='larger')
-z_score, p_value
+print(z_score, p_value)
+
+#Now let's use logistic regression to build a model
+df2['intercept'] = 1
+df2['ab_page'] = np.where(df2['group'] == 'control', 0, 1)
