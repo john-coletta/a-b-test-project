@@ -84,3 +84,9 @@ df3 = pd.merge(df2, countries, on='user_id')
 dummy_country = pd.get_dummies(df3['country'], prefix='country')
 final_df = df3.join(dummy_country)
 #The US column will be our baseline
+#Do the regression
+
+mod2 = sm.Logit(final_df['converted'], final_df[['ab_page','country_CA','country_UK','intercept']])
+fit2 = mod2.fit()
+
+print(fit2.summary())
